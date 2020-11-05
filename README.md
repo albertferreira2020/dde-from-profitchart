@@ -16,7 +16,6 @@ app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
   });
-
       
   
   app.use(compression());
@@ -32,10 +31,6 @@ app.use(function(req, res, next) {
       console.log (__dirname);
       res.sendFile(__dirname + '/front.html');
   });
-
- 
-http.createServer(app).listen(5000,() => console.log('listening on http://localhost:5000/'));
-
  
 const { Console } = require('console');
 
@@ -95,4 +90,4 @@ var client1 = new client.DdeClient({
   client1.startAdvise();
   setInterval(function() { client1.dispose(); }, 999999999);
 
- 
+ http.createServer(app).listen(5000,() => console.log('listening on http://localhost:5000/'));
