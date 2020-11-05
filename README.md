@@ -1,5 +1,6 @@
 # dde-from-profitchart
-## create file app.js
+This is a api rest in node.js vendor trade data from profitchart software.
+
 ```javascript
 const client = require('ts-dde');
 const compression = require('compression')
