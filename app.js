@@ -79,8 +79,6 @@ var client1 = new client.DdeClient({
 })
 
 
- 
-
   app.get('/dados', function (req, res) {
     res.json([{DAT,HOR,ULT,ABE,MAX,MIN,FEC,PEX,VAR,VARPTS,MED,NEG,QTT,VOL,OCP,OVD,VOC,VOV,SEM,MES,TRESM,SEISM,DOZEM,ANO,TRIM,SEMES,PERMAX,PERMIN,C20,C40,C60,C80,C100,OUTPUT}])
   });
