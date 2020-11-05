@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
   
   app.get('/', function(req,res){
       console.log (__dirname);
-      res.sendFile(__dirname + '/front.html');
+      res.sendFile(__dirname + 'view/front.html');
   });
  
 const { Console } = require('console');
