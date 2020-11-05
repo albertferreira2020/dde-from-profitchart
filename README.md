@@ -1,5 +1,5 @@
 # dde-from-profitchart
-This is a api rest in node.js vendor of trade data from profitchart software.
+An api rest created in node, to read the data from the ProfitChart software, using the DDE protocol with a view with hightcharts framework for rendering graphics.
 
 ```javascript
 const client = require('ts-dde');
