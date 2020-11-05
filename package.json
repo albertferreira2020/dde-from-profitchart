@@ -1,0 +1,24 @@
+{
+  "name": "dde-from-profitchart",
+  "version": "1.0.0",
+  "description": "Get data from dde connection profitchart",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albertferreira2020/dde-from-profitchart.git"
+  },
+  "author": "Albert Ferreira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/albertferreira2020/dde-from-profitchart/issues"
+  },
+  "homepage": "https://github.com/albertferreira2020/dde-from-profitchart#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "ts-dde": "^1.0.5"
+  }
+}
