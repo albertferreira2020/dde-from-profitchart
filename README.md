@@ -1,5 +1,5 @@
 # dde-from-profitchart
-This is a api rest in node.js vendor trade data from profitchart software.
+This is a api rest in node.js vendor of trade data from profitchart software.
 
 ```javascript
 const client = require('ts-dde');
