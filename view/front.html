@@ -1,0 +1,200 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>IA - Montior Day Trade</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+ 
+
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+    <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container-fluid">
+     <br>
+    <p>Monitoramento de Dados Day Trade</p>
+
+    <div class="row">
+        <div class="col-lg-12" id="grafico1"></div>   
+        <!--<div class="col-lg-4" id="grafico2" style="min-width: 180px; max-width: 350px; height: 300px; margin: 0 auto; margin-top:0px;"></div>  -->
+        <div class="col-lg-4" id="dados" style="color:#333"></div> 
+        <div class="col-lg-4" id="dados2" style="color:#333"></div> 
+
+    </div>
+</div>
+
+
+<script>
+////https://jsfiddle.net/5xn0r3k2/
+ 
+var chart = new Highcharts.Chart({
+        chart: {
+            backgroundColor: 'transparent',
+            renderTo: 'grafico1'
+        },
+        series: [{
+        type: 'candlestick',
+
+
+        groupPadding: 0,
+        pointPadding: 0.01,
+        data: []
+        
+    },]
+    
+    
+    });
+ 
+
+
+ 
+
+var DAT,HOR,HORA,ULT,ABE,MAX,MIN,FEC,PEX,VAR,VARPTS,MED,NEG,QTT,VOL,OCP,OVD,VOC,VOV,SEM,MES,TRESM,SEISM,DOZEM,ANO,TRIM,SEMES,PERMAX,PERMIN,C20, C40, C60, C80, C100, OUTPUT
+LINE1 = []
+LINE2 = []
+LINE3 = []
+VALOR = ''
+var PONTO = 0
+var N = 0
+var A = 0
+var F = 0
+var NC = 0
+var NEGOCIOS = 0
+ setInterval(() => {ajaxCall()}, 0); 
+function ajaxCall() {
+    $.ajax({
+    url: 'http://'+window.location.hostname+':'+window.location.port+'/dados',
+    type :'GET',
+    crossDomain: true,
+    cache: false,
+      success : function(result) {
+  
+        DAT = result[0].DAT
+
+        HORA = result[0].HOR.toString().replace('0.','')
+        HORA = HORA.substring(0,2)+':'+HORA.toString().substring(2,4)+':'+HORA.toString().substring(4,6)
+
+        HOR = result[0].HOR  
+        ULT = result[0].ULT
+        MIN = result[0].MIN
+        MAX = result[0].MAX 
+
+        ABE = result[0].ABE
+        FEC = result[0].FEC
+        VAR = result[0].VAR
+        VARPTS = result[0].VARPTS
+        MED = result[0].MED
+        NEG = result[0].NEG
+        QTT = result[0].QTT
+        VOL = result[0].VOL
+        OCP = result[0].OCP
+        OVD = result[0].OVD
+        VOC = result[0].VOC
+        VOV = result[0].VOV
+
+        SEM = result[0].SEM
+        MES = result[0].MES
+        TRESM = result[0].TRESM
+        SEISM = result[0].SEISM
+        DOZEM = result[0].DOZEM
+        ANO = result[0].ANO
+        TRIM = result[0].TRIM
+        SEMES = result[0].SEMES
+
+        MIN = result[0].MIN
+        MAX = result[0].MAX
+        PERMAX = result[0].PERMAX
+        PERMIN = result[0].PERMIN
+
+
+
+          PONTO = ULT*1000000
+          if(N < 5){C20 = PONTO}
+
+
+
+          if(C20 != PONTO && (PONTO-C20) ==20){
+          NC++
+          LINE2.push({x: NC, open: C20, high: PONTO, low:  C20, close: PONTO, color: '#00FF00', name: HORA })
+          chart.series[0].setData(LINE2);
+          C20 = PONTO
+          NEGOCIOS = NEGOCIOS + NEG 
+          }
+
+
+          if(C20 != PONTO && (PONTO-C20) ==-20){
+          NC++
+          LINE2.push({x: NC, open: PONTO, high: C20, low: PONTO, close: C20, color: 'red', name: HORA })
+          chart.series[0].setData(LINE2);
+          C20 = PONTO
+          NEGOCIOS = NEGOCIOS - NEG 
+          }
+
+
+
+ 
+
+
+          
+ 
+        $('#dados').html(`
+        Data: <span style="color:#666">${HORA}</span><br>       
+        Máxima: <span style="color:#FF4500">${MAX}</span><br>
+        Ponto: <span style="color:#00FF00">${ULT}</span><br>
+        Mínima: <span style="color:#4B0082">${MIN}</span><br>
+        Volume: ${VOV}<br>
+        Vol.Compra: ${VOC}<br>
+        Vol.Venda: ${VOV}<br>
+        Of.Compra: ${OCP}<br>
+        Of.Venda: ${OVD}<br>        
+        Negócios: ${NEGOCIOS}<br>
+        Int.Artificial: ${OUTPUT}<br>
+        `);
+
+        $('#dados2').html(`
+        Semana: ${SEM}<br>       
+        Mensal: ${MES}<br>
+        3 Meses: ${TRESM}<br>
+        6 Meses: ${SEISM}<br>
+        12 Meses: ${DOZEM}<br>
+        Ano: ${ANO}<br>
+        Trimestre: ${TRIM}<br>
+        Semestre: ${SEMES}<br>
+        `);
+
+         
+        
+      },
+    error: function() {
+  $('#notification-bar').text('An error occurred');
+  }
+  });
+
+  N++
+
+}
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+ 
+</script>
+
+</body>
+</html>
